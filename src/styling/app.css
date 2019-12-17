@@ -1,0 +1,49 @@
+#login {
+  background-image: url("https://i.imgur.com/vIlw1gw.jpg");
+  background-size: contain;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+}
+#login h2 {
+  margin: 5px;
+}
+#login h3 {
+  margin: 5px;
+}
+#login input {
+  text-align: center;
+  background: darkslategray;
+  color: whitesmoke;
+  border: none;
+  height: 20px;
+}
+#login #login-box {
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid #910000;
+  height: 40vh;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 5px;
+}
+#login button {
+  height: 3vh;
+  width: 10vw;
+  text-align: center;
+  text-transform: uppercase;
+  background: #910000;
+  color: whitesmoke;
+  border: none;
+}
+
+.App {
+  text-align: center;
+}
+
+/*# sourceMappingURL=app.css.map */
