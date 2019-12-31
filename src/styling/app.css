@@ -24,7 +24,7 @@
 #login #login-box {
   background: rgba(20, 20, 20, 0.8);
   border: 1px solid #910000;
-  height: 40vh;
+  min-height: 40vh;
   width: 30vw;
   display: flex;
   flex-direction: column;
@@ -40,6 +40,31 @@
   background: #910000;
   color: whitesmoke;
   border: none;
+  margin-bottom: 5px;
+}
+#login Link {
+  text-decoration: none;
+  height: 3vh;
+  width: 10vw;
+  text-align: center;
+  text-transform: uppercase;
+  background: #910000;
+  color: whitesmoke;
+  border: 1px solid white;
+}
+
+#register {
+  background-image: url("https://i.imgur.com/vIlw1gw.jpg");
+  background-size: contain;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+}
+#register section {
+  background: red;
 }
 
 .App {

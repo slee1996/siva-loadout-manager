@@ -1,0 +1,16 @@
+@use 'colorScheme';
+
+#register {
+    background-image: url(colorScheme.$bg-image);
+    background-size: contain;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: whitesmoke;
+
+    section {
+        background: red;
+    }
+}

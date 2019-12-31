@@ -8,6 +8,7 @@ create table users (
 create table loadouts (
     loadout_id serial primary key,
     foreign key (user_id) references users(user_id),
+    char_class int, --1: Hunter, 2: Titan, 3: Warlock
     kinetic varchar(50),
     energy varchar(50),
     heavy varchar(50),

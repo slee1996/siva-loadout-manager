@@ -27,7 +27,7 @@
     #login-box {
         background: rgba(20, 20, 20, 0.8);
         border: 1px solid rgb(145,0,0);
-        height: 40vh;
+        min-height: 40vh;
         width: 30vw;
         display: flex;
         flex-direction: column;
@@ -44,5 +44,6 @@
         background: rgb(145, 0, 0);
         color: whitesmoke;
         border: none;
+        margin-bottom: 10px;
     }
 }
