@@ -42,16 +42,6 @@ module.exports = {
             res.status(401).send('Incorrect Password')
         }
     },
-
-    getPosts: (req, res) => {
-        const {user_id} = req.params;
-        const db = req.app.get('db');
-
-        let posts = db.get_posts(user_id).then(posts => {
-            res.status(200).send(posts)
-        })
-        .catch(err => res.status(500).send(err))
-    }, 
     
     logout: (req, res) => {
         req.session.destroy()
