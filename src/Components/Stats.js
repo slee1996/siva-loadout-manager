@@ -53,9 +53,9 @@ const Stats = () => {
     }, [stats])
 
     return(
-        <div>
-            <h1>Stat Tracker</h1>
+        <div className='Stats'> 
             <div id='search-div'>
+                <h1>Stat Tracker</h1>
                 <input value={name} placeholder='Search Player' onChange={(e) => setName(e.target.value)} />
                 <button value={name} onClick={(e) => setPlayer(e.target.value)}>Search</button>
             </div>
@@ -65,20 +65,29 @@ const Stats = () => {
                 <div id='stat-div'>
                     <h3>Kill/Death Ratio:</h3> 
                     <h3>{kd}</h3>
+                    <h3>Efficiency:</h3>
+                    <h3>(efficiency)</h3>
                 </div>
                 <div id='stat-div'>
                     <h3>Kills</h3>
                     <h4>Total Kills:</h4> 
                     <h4>{kills}</h4>
                     <h4>Kills Per Game:</h4>
+                    <h4>(kpg)</h4>
                 </div>
                 <div id='stat-div'>
+                    <h3>Assists</h3>
                     <h4>Total Assists:</h4> 
                     <h4>{assists}</h4>
+                    <h4>Assists Per Game:</h4>
+                    <h4>(apg)</h4>
                 </div>
                 <div id='stat-div'>
-                    <h4>Deaths:</h4> 
+                    <h3>Deaths</h3>
+                    <h4>Total Deaths:</h4> 
                     <h4>{deaths}</h4>
+                    <h4>Deaths Per Game</h4>
+                    <h4>(dpg)</h4>
                 </div>
             </div>
         </div>
