@@ -40,17 +40,7 @@
   background: #910000;
   color: whitesmoke;
   border: none;
-  margin-bottom: 5px;
-}
-#login Link {
-  text-decoration: none;
-  height: 3vh;
-  width: 10vw;
-  text-align: center;
-  text-transform: uppercase;
-  background: #910000;
-  color: whitesmoke;
-  border: 1px solid white;
+  margin-bottom: 10px;
 }
 
 #register {
@@ -67,8 +57,63 @@
   background: red;
 }
 
+#dashboard {
+  height: 100vh;
+  width: 100vw;
+  background: darkslategray;
+}
+#dashboard #characters {
+  height: 30vh;
+  width: 50vw;
+  border: 1px solid black;
+}
+#dashboard #characters #emblem {
+  height: 5vh;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  margin-bottom: 3px;
+}
+#dashboard #characters #char-equipment {
+  height: 24vh;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+#dashboard #characters #equipment-box {
+  height: 55px;
+  width: 200px;
+  border: 1px solid whitesmoke;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 150%;
+}
+#dashboard #characters #equipment-box #image-box {
+  height: 50px;
+  width: 50px;
+  margin-left: 5px;
+}
+#dashboard #characters #equipment-box #image-box img {
+  height: 100%;
+  width: 100%;
+}
+#dashboard #characters #equipment-box h6 {
+  margin: 0px 15px;
+}
+
 .App {
   text-align: center;
+}
+
+h4 {
+  margin: 0;
 }
 
 /*# sourceMappingURL=app.css.map */

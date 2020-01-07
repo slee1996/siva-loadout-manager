@@ -1,7 +1,12 @@
 @use 'login';
 @use 'register';
+@use 'dashboard';
 
 .App {
     text-align: center;
+}
+
+h4 {
+    margin: 0;
 }
 
