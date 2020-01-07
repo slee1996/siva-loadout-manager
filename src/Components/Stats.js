@@ -4,8 +4,6 @@ import axios from 'axios'
 const apiKey = process.env.REACT_APP_API_KEY
 
 const Stats = () => {
-    let [killKeys, setKillKeys] = useState('')
-
     let [stats, setStats] = useState({})
     let [kills, setKills] = useState('')
     let [deaths, setDeaths] = useState('')
@@ -20,19 +18,19 @@ const Stats = () => {
 
     useEffect(() => {
         axios.get(`https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/All/${name}/`, {headers: {'X-API-Key': apiKey}})
-             .then(res => setPlayerID(playerID = res.data.Response[0].membershipId))
+             .then(res => setPlayerID(res.data.Response[0].membershipId))
              .catch(err => console.log(err))
     }, [player])
 
     useEffect(() => {
         axios.get(`https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/All/${name}/`, {headers: {'X-API-Key': apiKey}})
-             .then(res => setMembership(membership = res.data.Response[0].membershipType))
+             .then(res => setMembership(res.data.Response[0].membershipType))
              .catch(err => console.log(err))
     }, [playerID])
 
     useEffect(() => {
         axios.get(`https://www.bungie.net/Platform//Destiny2/${membership}/Account/${playerID}/Stats/`, {headers: {'X-API-Key': apiKey}})
-             .then(res => setStats(stats = res.data.Response.mergedAllCharacters.results.allPvP.allTime))
+             .then(res => setStats(res.data.Response.mergedAllCharacters.results.allPvP.allTime))
              .catch(err => console.log(err))
     }, [membership])
 
@@ -44,13 +42,14 @@ const Stats = () => {
 
         if(keys[0]){
             console.log('keys assigned')
-            setKillKeys(killKeys = Object.keys(uKills))
-            setKills(kills = stats.kills[killKeys[1]].value)
-            setDeaths(deaths = stats.deaths[killKeys[1]].value)
-            setKD(kd = stats.killsDeathsRatio[killKeys[1]].displayValue)
+            let killKeys = Object.keys(uKills)
+
+            setKD(stats.killsDeathsRatio[killKeys[1]].displayValue)
+            setKills(stats.kills[killKeys[1]].value)
+            setDeaths(stats.deaths[killKeys[1]].value)
+            setAssists(stats.assists[killKeys[1]].value)
         }
         else console.log('nah fam')
-
     }, [stats])
 
     return(
@@ -61,18 +60,21 @@ const Stats = () => {
                 <button value={name} onClick={(e) => setPlayer(e.target.value)}>Search</button>
             </div>
             <h1>{player}</h1>
-            <div id='stat-div'>
-                <h4>KD Ratio:</h4> 
-                <h4>{kd}</h4>
-            </div>
-            <div id='per-game'>
-                <h3>Per Game Average</h3>
-            </div>
             <div id='total-div'>
-                <h3>Totals</h3>
+                <h3>Stats</h3>
                 <div id='stat-div'>
-                    <h4>Kills:</h4> 
+                    <h3>Kill/Death Ratio:</h3> 
+                    <h3>{kd}</h3>
+                </div>
+                <div id='stat-div'>
+                    <h3>Kills</h3>
+                    <h4>Total Kills:</h4> 
                     <h4>{kills}</h4>
+                    <h4>Kills Per Game:</h4>
+                </div>
+                <div id='stat-div'>
+                    <h4>Total Assists:</h4> 
+                    <h4>{assists}</h4>
                 </div>
                 <div id='stat-div'>
                     <h4>Deaths:</h4> 
