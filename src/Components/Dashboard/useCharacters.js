@@ -1,43 +1,63 @@
 import React, { useState, useEffect } from 'react'
 import useItem from './useItem'
 
-const useCharacters = (characters, key, charKeys) => {
-    console.log(characters)
-    console.log(charKeys)
+const useCharacters = (character, keys, charKeys) => {
+    let [newKeys, setNewKeys] = useState([]) 
+    let [newCharacter, setNewCharacter] = useState(null)//setting up new character object so that this hook doesn't fire infinitely when called
+    //Light Level Definitions
     let [light, setLight] = useState('')
-    let [character, setCharacter] = useState('')
-    //Character Race
-    let [raceType, setRaceType] = useState('')
+
+    //Gender Definitions
+    let [gender, setGender] = useState('')
+
+    //Character Race Definitions
     let [race, setRace] = useState('')
 
-    //Character Class
+    //Character Class Definitions
     let [classType, setClassType] = useState('')
-    let [charClass, setCharClass] = useState('')
+    
+    useEffect(() => {
+        setNewKeys(charKeys)
+    })
 
     useEffect(() => {
-        setCharacter(characters[key])
-    })
-    // useEffect(() => {
-    //     keys.forEach(
-    //         console.log(characters[keys]),
-    //         setLight(character[charKeys[6]]),
-    //         setRaceType(character[charKeys[11]]),
-    //         setClassType(character[charKeys[12]])
-    //     ) 
-    // }, [keys])
+        if(character){
+            setLight(character[charKeys[6]])
+            setGender(character[charKeys[13]])
 
-    // useEffect(() => {
-    //     if(keys[0] || charKeys[0]){
-    //         keys.forEach(key => {
-    //             setCharacter(<>{characters[key][charKeys[6]]}</>)
-    //         })
-    //     }
-    // }, [keys][charKeys])
-    
+            setRace(() => {
+                    if(character[charKeys[11]] === 0){return 'Human'}
+                    if(character[charKeys[11]] === 1){return 'Awoken'}
+                    if(character[charKeys[11]] === 2){return 'Exo'}
+                }
+            )
+
+            setClassType(() => {
+                if(character[charKeys[12]] === 0){return 'Titan'}
+                if(character[charKeys[12]] === 1){return 'Hunter'}
+                if(character[charKeys[12]] === 2){return 'Warlock'}
+            })
+        }
+        else return undefined
+    },[newKeys])
+
+    useEffect(() => {
+        if(light || gender || race || classType){
+            setNewCharacter(
+                <div id='characters'>
+                    {race}
+                    {classType}
+                    {light}
+                </div>
+        )}
+        else return undefined
+    },[light, gender, race, classType])
+
     return(
-        <div id='characters'>
-            {character[charKeys[6]]}
-        </div>
+        console.log(character),
+        <>
+            {newCharacter}  
+        </>
     )
 }
 
