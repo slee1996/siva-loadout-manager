@@ -3,30 +3,42 @@ import axios from 'axios'
 
 const apiKey = process.env.REACT_APP_API_KEY
 
-const useItem = (itemHash) => {
-    let [name, setName] = useState('')
-    let [icon, setIcon] = useState('')
+const useItem = (hash) => {
+    let [itemHash, setHash] = useState(undefined)
+    let [itemObj, setItemObj] = useState(undefined)
+
+    let [name, setName] = useState(undefined)
+    let [icon, setIcon] = useState(undefined)
+    let [stats, setStats] = useState(undefined)
 
     useEffect(() => {
+        setHash(hash)
+    })
+
+    useEffect(() => {
+        if(itemHash){
         axios.get(`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${itemHash}/`, {headers: {'X-API-Key': apiKey}})
              .then(res => {
-                //console.log(res.data.Response)
+                console.log(res.data.Response)
                 setName(res.data.Response.displayProperties.name)
+                //setStats(res.data.Response.stats.stats)
                 setIcon('https://www.bungie.net' + res.data.Response.displayProperties.icon)
             })
              .catch(err => console.log(err))
-    })
+        }
+    },[itemHash])
 
-    // useEffect(() => {
-    //     console.log(name)
-    //     console.log(icon)
-    // }, [name][icon])
+    useEffect(() => {
+        let item = {
+            name: name,
+            icon: icon,
+            stats
+        }
+        setItemObj(item)
+    },[name, icon, stats])
 
     return(
-        <div id='item-div'>
-            <img src={icon} />
-            <h5>{name}</h5>
-        </div>
+        itemObj
     )
 }
 

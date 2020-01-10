@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import useItem from './useItem'
 
-const useCharacters = (character, keys, charKeys) => {
+const useCharacters = (character, charKeys) => {
+    let [loading, setLoading] = useState(false)
     let [newKeys, setNewKeys] = useState([]) 
-    let [newCharacter, setNewCharacter] = useState(null)//setting up new character object so that this hook doesn't fire infinitely when called
+    let [newCharacter, setNewCharacter] = useState(undefined)//setting up new character object so that this hook doesn't fire infinitely when called
     //Light Level Definitions
     let [light, setLight] = useState('')
 
@@ -22,6 +22,7 @@ const useCharacters = (character, keys, charKeys) => {
 
     useEffect(() => {
         if(character){
+            setLoading(true)
             setLight(character[charKeys[6]])
             setGender(character[charKeys[13]])
 
@@ -48,15 +49,15 @@ const useCharacters = (character, keys, charKeys) => {
                     {race}
                     {classType}
                     {light}
-                </div>
-        )}
+                </div>)
+            setLoading(false)
+        }
         else return undefined
     },[light, gender, race, classType])
 
     return(
-        console.log(character),
-        <>
-            {newCharacter}  
+        <> 
+            {loading ? 'Loading...' : newCharacter}
         </>
     )
 }
