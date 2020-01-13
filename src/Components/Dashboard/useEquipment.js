@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import { useState, useEffect } from 'react'
 import useItem from './useItem'
-
-const apiKey = process.env.REACT_APP_API_KEY
 
 const useEquipment = (equipment) => {
     let [equipped, setEquipped] = useState(undefined)
@@ -18,7 +15,11 @@ const useEquipment = (equipment) => {
     let [classHash, setClassHash] = useState(undefined)
 
     useEffect(() => {
-        setEquipped(equipment);
+        const runEffect = async() => {
+            let equip = await equipment
+            setEquipped(equip)
+        }
+        runEffect()
     })
 
     useEffect(() => {
@@ -32,7 +33,7 @@ const useEquipment = (equipment) => {
         let classHash
 
         if(equipped){
-            console.log(equipped)
+            //console.log(equipped)
             kineticHash = equipped[0].itemHash
             energyHash = equipped[1].itemHash
             heavyHash = equipped[2].itemHash
@@ -54,67 +55,28 @@ const useEquipment = (equipment) => {
         else return undefined
     }, [equipped])
 
-    let kinetic = useItem(kineticHash)
-    let energy = useItem(energyHash)
-    let heavy = useItem(heavyHash)
-    let helmet = useItem(helmetHash)
-    let arms = useItem(armsHash)
-    let chest = useItem(chestHash)
-    let legs = useItem(legsHash)
-    let classItem = useItem(classHash)
+    const kinetic = useItem(kineticHash)
+    const energy = useItem(energyHash)
+    const heavy = useItem(heavyHash)
+    const helmet = useItem(helmetHash)
+    const arms = useItem(armsHash)
+    const chest = useItem(chestHash)
+    const legs = useItem(legsHash)
+    const classItem = useItem(classHash)
+
+    const loadout = {
+        kinetic: kinetic,
+        energy: energy,
+        heavy: heavy,
+        helmet: helmet,
+        arms: arms,
+        chest: chest,
+        legs: legs,
+        classItem: classItem
+    }
 
     return(
-        <div>
-            {kinetic ? 
-                <>
-                    <img src={kinetic.icon} />
-                    {kinetic.name}
-                </>
-            : null}
-            {energy ? 
-                <>
-                    <img src={energy.icon} />
-                    {energy.name}
-                </> 
-            : null}
-            {heavy ? 
-                <>
-                    <img src={heavy.icon} />
-                    {heavy.name}
-                </> 
-            : null}
-            {helmet ? 
-                <>
-                    <img src={helmet.icon} />
-                    {helmet.name}
-                </> 
-            : null}
-            {arms ?
-                <>
-                    <img src={arms.icon}/>
-                    {arms.name}
-                </>
-            : null}
-            {chest ?
-                <>
-                    <img src={chest.icon} />
-                    {chest.name}
-                </>
-            : null}
-            {legs ?
-                <>
-                    <img src={legs.icon} />
-                    {legs.name}
-                </>
-            : null}
-            {classItem ?
-                <>
-                    <img src={classItem.icon} />
-                    {classItem.name}
-                </>
-            : null}
-        </div>
-        
+        {loadout}
     )
 }
 

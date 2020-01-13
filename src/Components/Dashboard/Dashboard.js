@@ -3,16 +3,19 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import useCharacters from './useCharacters'
 import useEquipment from './useEquipment'
+//import useMembershipID from './useMembershipId'
 
 const apiKey = process.env.REACT_APP_API_KEY
 
 const Dashboard = () => {
-    let [username, setUsername] = useState('frogsarepeople2')
-    let [membershipID, setMemID] = useState('')
+    let username = 'frogsarepeople2'
+    let membershipID = '4611686018450621105'
 
-    let [player, setPlayer] = useState({})
     let [characters, setCharacters] = useState({})
+    let [selectedCharacter, setSelectedCharacter] = useState(undefined)
     let [equipment, setEquipment] = useState({})
+    let [toggleMenu, setToggleMenu] = useState(false)
+    let [charMenu, setCharMenu] = useState(undefined)
 
     let [keys, setKeys] = useState([])
     let [charKeys, setCharKeys] = useState([]) //charkeys = 'character keys' (i.e. character object level keys)
@@ -26,31 +29,33 @@ const Dashboard = () => {
     let [charTwoEquipment, setCharTwoEquipment] = useState(null)
     let [charThreeEquipment, setCharThreeEquipment] = useState(null)
 
-    useEffect(() => {
-        axios.get(`https://www.bungie.net/Platform/Destiny2/SearchDestinyPlayer/All/${username}/`, {headers: {'X-API-Key': apiKey}})
-             .then(res => setMemID(res.data.Response[0].membershipId))
-             .catch(err => console.log(err))
-    })
+    //const memshipID = useMembershipID(membershipID)
 
     useEffect(() => {
-        axios.get(`https://www.bungie.net/Platform/Destiny2/1/Profile/${membershipID}/?components=Profiles,Characters,CharacterEquipment`, {headers: {'X-API-Key': apiKey}})
-             .then(res => {
-                 setPlayer(res.data.Response)
-                 setCharacters(res.data.Response.characters.data)
-                 setEquipment(res.data.Response.characterEquipment.data)
-                 console.log('request successful')
+        const source = axios.CancelToken.source()
+        const runEffect = async() => {
+            try {
+                const response = await axios.get(`https://www.bungie.net/Platform/Destiny2/1/Profile/${membershipID}/?components=Profiles,Characters,CharacterEquipment`, {
+                    headers: {'X-API-Key': apiKey},
+                    cancelToken: source.token
                 })
-             .catch(err => console.log(err))
-    },[membershipID])
+                setCharacters(response.data.Response.characters.data)
+                setEquipment(response.data.Response.characterEquipment.data)
+            } catch(error) {
+                if (axios.isCancel(error)){}
+                else {throw error}
+            }
+        }
+        runEffect()
+        return () => {
+            source.cancel()
+        }
+    },[characters, equipment])
 
     useEffect(() => {
-        setKeys(Object.keys(characters))
-        
+        if(characters)
+        setKeys(Object.keys(characters))  
     }, [characters])
-
-    useEffect(() => {
-        console.log(equipment)
-    },[equipment])
 
     useEffect(() => {
         let character
@@ -58,8 +63,6 @@ const Dashboard = () => {
         if(keys[0]){
             character = characters[keys[0]]
             setCharKeys(Object.keys(character))
-            console.log(characters)
-            console.log(keys)
             if(characters[keys[0]]){
                 setOne(characters[keys[0]])
                 if(equipment[keys[0]]){setCharOneEquipment(equipment[keys[0]].items)}
@@ -76,29 +79,162 @@ const Dashboard = () => {
         else return undefined
     }, [keys])
 
-    let charCardOne = useCharacters(one, charKeys) 
-    let charCardTwo = useCharacters(two, charKeys) 
-    let charCardThree = useCharacters(three, charKeys)
+    //Building Character One
+    let charOne = useCharacters(one, charKeys).character  
+    let equipOne = useEquipment(charOneEquipment).loadout
+    const charCardOne = charOne && equipOne ? 
+        <div id='char-card'>
+            {console.log(charOne)}
+                <div id='characters'>
+                    {charOne.race}
+                    {charOne.classType}
+                    {charOne.light}
+                </div>
+                <div id='equip-div'>
+                    <div id='weapon-div'>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipOne.kinetic.icon} alt={equipOne.kinetic.name} />
+                        </div>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipOne.energy.icon} />
+                        </div>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipOne.heavy.icon} />
+                        </div>
+                    </div>
+                    <div id='armor-div'>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipOne.helmet.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipOne.arms.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipOne.chest.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipOne.legs.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipOne.classItem.icon} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        : null
 
-    let charEquipOne =  useEquipment(charOneEquipment)
-    let charEquipTwo =  useEquipment(charTwoEquipment)
-    let charEquipThree =  useEquipment(charThreeEquipment)
+    let charTwo = useCharacters(two, charKeys).character
+    let equipTwo = useEquipment(charTwoEquipment).loadout
+    const charCardTwo = charTwo && equipTwo ? 
+        <div id='char-card'>
+                <div id='characters'>
+                    {charTwo.race}
+                    {charTwo.classType}
+                    {charTwo.light}
+                </div>
+                <div id='equip-div'>
+                    <div id='weapon-div'>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipTwo.kinetic.icon} />
+                        </div>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipTwo.energy.icon} />
+                        </div>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipTwo.heavy.icon} />
+                        </div>
+                    </div>
+                    <div id='armor-div'>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipTwo.helmet.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipTwo.arms.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipTwo.chest.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipTwo.legs.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipTwo.classItem.icon} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        : null
+
+    let charThree = useCharacters(three, charKeys).character
+    let equipThree = useEquipment(charThreeEquipment).loadout
+    const charCardThree = charThree && equipThree ? 
+        <div id='char-card'>
+                <div id='characters'>
+                    {charThree.race}
+                    {charThree.classType}
+                    {charThree.light}
+                </div>
+                <div id='equip-div'>
+                    <div id='weapon-div'>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipThree.kinetic.icon} />
+                        </div>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipThree.energy.icon} />
+                        </div>
+                        <div id='weapon-box'>
+                            <img id='image-box' src={equipThree.heavy.icon} />
+                        </div>
+                    </div>
+                    <div id='armor-div'>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipThree.helmet.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipThree.arms.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipThree.chest.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipThree.legs.icon} />
+                        </div>
+                        <div id='armor-box'>
+                            <img id='image-box' src={equipThree.classItem.icon} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        : null
     
-
-    //if(charThreeEquipment){console.log(charThreeEquipment)}else{console.log('no')}
-    //if(charTwoEquipment){console.log(charTwoEquipment)}else{console.log('no')}
-    //if(charOneEquipment){console.log(charOneEquipment)}else{console.log('no')}
-
     return(
         <div id='dashboard'>Dashboard Page
             <Link to='/stats'>Stats</Link>
-            <div>Wumbo
+            {two ? 
+                <button onClick={() => {
+                    setToggleMenu(() => {
+                        if(toggleMenu){
+                            return false
+                        }
+                        if(!toggleMenu){
+                            return true
+                        }
+                    })
+                }}>
+                    Set Character
+                </button>
+            : null}
+            {toggleMenu ? 
+                <>menuMap</>
+            : null}
+            <div id='character-cards-div'>
                 {charCardOne}
-                {charEquipOne}
-                {charCardTwo}
-                {charEquipTwo}
-                {charCardThree}
-                {charEquipThree}
+                {charCardTwo ? 
+                    charCardTwo
+                : null}
+                {charThree ? 
+                    charCardThree
+                : null}
             </div>
         </div>
     )

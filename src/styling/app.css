@@ -58,13 +58,40 @@
 }
 
 #dashboard {
-  height: 100vh;
+  min-height: 100vh;
   width: 100vw;
-  background: darkslategray;
+  background: slategray;
+}
+#dashboard #character-cards-div {
+  width: 100%;
+  min-height: 32vh;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  justify-content: space-evenly;
+}
+#dashboard #char-card {
+  width: 33vw;
+  min-height: 32vh;
+  border: 1px solid blue;
+}
+#dashboard #title-div {
+  width: 33vw;
+  height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid black;
+}
+#dashboard #title-div h3 {
+  border: 1px solid black;
+  height: 4vh;
+  width: 16vw;
 }
 #dashboard #characters {
-  height: 30vh;
-  width: 50vw;
+  height: 6vh;
+  width: 33vw;
   border: 1px solid black;
 }
 #dashboard #characters #emblem {
@@ -85,9 +112,38 @@
   justify-content: space-between;
   align-items: center;
 }
-#dashboard #characters #equipment-box {
-  height: 55px;
-  width: 200px;
+#dashboard #equip-div {
+  height: 40vh;
+  width: 33vw;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+#dashboard #equip-div h3 {
+  width: 16vw;
+  height: 5vh;
+  border: 1px solid white;
+}
+#dashboard #equip-div #weapon-div {
+  width: 16vw;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#dashboard #equip-div #armor-div {
+  width: 16vw;
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#dashboard #equip-div #armor-box {
+  height: 60px;
+  width: 60px;
   border: 1px solid whitesmoke;
   display: flex;
   flex-direction: row;
@@ -95,16 +151,36 @@
   align-items: center;
   font-size: 150%;
 }
-#dashboard #characters #equipment-box #image-box {
-  height: 50px;
-  width: 50px;
-  margin-left: 5px;
+#dashboard #equip-div #armor-box #image-box {
+  height: 59px;
+  width: 59px;
 }
-#dashboard #characters #equipment-box #image-box img {
+#dashboard #equip-div #armor-box #image-box img {
   height: 100%;
   width: 100%;
 }
-#dashboard #characters #equipment-box h6 {
+#dashboard #equip-div #armor-box h6 {
+  margin: 0px 15px;
+}
+#dashboard #equip-div #weapon-box {
+  height: 80px;
+  width: 80px;
+  border: 1px solid whitesmoke;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 150%;
+}
+#dashboard #equip-div #weapon-box #image-box {
+  height: 79px;
+  width: 79px;
+}
+#dashboard #equip-div #weapon-box #image-box img {
+  height: 100%;
+  width: 100%;
+}
+#dashboard #equip-div #weapon-box h6 {
   margin: 0px 15px;
 }
 

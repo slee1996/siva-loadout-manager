@@ -1,13 +1,43 @@
+
+
 #dashboard {
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
-    background: darkslategray;
+    background: slategray;
+    
+    #character-cards-div{
+        width: 100%;
+        min-height: 32vh;
+        display: flex;
+        flex-direction: row;
+        border: 1px solid black;
+        justify-content: space-evenly;
+    }
+    #char-card {
+        width: 33vw;
+        min-height: 32vh;
+        border: 1px solid blue;
+    }
+    #title-div {
+        width: 33vw;
+        height: 5vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        border: 1px solid black;
+        h3 {
+            border: 1px solid black;
+            height: 4vh;
+            width: 16vw;
+        }
+    }
 
     #characters {
-        height: 30vh;
-        width: 50vw;
+        height: 6vh;
+        width: 33vw;
         border: 1px solid black;
-
+        
         #emblem {
             height: 5vh;
             border: 1px solid black;
@@ -26,10 +56,39 @@
             justify-content: space-between;
             align-items: center;
         }
-
-        #equipment-box {
-            height: 55px;
-            width: 200px;
+        
+    }
+    #equip-div{ 
+        height: 40vh;
+        width: 33vw;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        h3{
+            width: 16vw;
+            height: 5vh;
+            border: 1px solid white;
+        }
+        #weapon-div{
+            width: 16vw;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        #armor-div{
+            width: 16vw;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        #armor-box {
+            height: 60px;
+            width: 60px;
             border: 1px solid whitesmoke;
             display: flex;
             flex-direction: row;
@@ -38,9 +97,30 @@
             font-size: 150%;
 
             #image-box {
-                height: 50px;
-                width: 50px;
-                margin-left: 5px;
+                height: 59px;
+                width: 59px;
+                img {
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+            h6 {
+                margin: 0px 15px;
+            }
+        }
+        #weapon-box {
+            height: 80px;
+            width: 80px;
+            border: 1px solid whitesmoke;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 150%;
+
+            #image-box {
+                height: 79px;
+                width: 79px;
                 img {
                     height: 100%;
                     width: 100%;

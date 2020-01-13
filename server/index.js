@@ -9,7 +9,6 @@ const express = require('express'),
       {CONNECTION_STRING, SERVER_PORT, SESSION_SECRET, X_API_KEY} = process.env,
       cors = require('cors')
       app = express()
-      path = require('path')
 
 app.use(cors())
 app.use(express.json())
