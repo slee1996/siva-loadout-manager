@@ -1,82 +1,63 @@
 import { useState, useEffect } from 'react'
-import useItem from './useItem'
+import useSetItems from './useSetItems'
 
-const useEquipment = (equipment) => {
-    let [equipped, setEquipped] = useState(undefined)
+const axios = require('axios')
+const baseUrl = 'http://localhost:4000/api/'
+
+const useEquipment = (membershipID) => {
+    const memberID = membershipID
     
-    //equipment slots
-    let [kineticHash, setKineticHash] = useState(undefined)
-    let [energyHash, setEnergyHash] = useState(undefined)
-    let [heavyHash, setHeavyHash] = useState(undefined)
-    let [helmetHash, setHelmetHash] = useState(undefined)
-    let [armsHash, setArmsHash] = useState(undefined)
-    let [chestHash, setChestHash] = useState(undefined)
-    let [legsHash, setLegsHash] = useState(undefined)
-    let [classHash, setClassHash] = useState(undefined)
+    let [equipment, setEquipment] = useState(undefined)
+    let [itemArray, setItemArray] = useState(undefined)
+    let [hashArray, setHashArray] = useState(undefined)
+    
+    useEffect(() => {
+        const source = axios.CancelToken.source()
+        const runEffect = async() => {
+            try {
+                const response = await axios.get(`${baseUrl}${memberID}/equipment`,{
+                    cancelToken: source.token
+                })
+                setItemArray(response.data)
+                console.log(response.data)
+            } catch(error) {
+                if (axios.isCancel(error)){}
+                else {throw error}
+            }
+        }
+        runEffect()
+        return () => {
+            source.cancel()
+        }
+    },[memberID])
+
+    useEffect(() => {
+        const runEffect = async(itemArray) => {
+            const arr = itemArray.map(
+                character => 
+                {
+                    const items = character.items
+                    //items.map(item => console.log(item.itemHash))
+                    return items.map(item => item.itemHash)
+                }
+            )
+            setHashArray(arr)
+        }
+        runEffect(itemArray).catch(err => console.log(err))
+    },[itemArray])
+
+    const itemsHashed = useSetItems(hashArray)
 
     useEffect(() => {
         const runEffect = async() => {
-            let equip = await equipment
-            setEquipped(equip)
+            setEquipment(itemsHashed)
         }
         runEffect()
-    })
-
-    useEffect(() => {
-        let kineticHash
-        let energyHash
-        let heavyHash
-        let helmetHash
-        let armsHash
-        let chestHash
-        let legsHash
-        let classHash
-
-        if(equipped){
-            //console.log(equipped)
-            kineticHash = equipped[0].itemHash
-            energyHash = equipped[1].itemHash
-            heavyHash = equipped[2].itemHash
-            helmetHash = equipped[3].itemHash
-            armsHash = equipped[4].itemHash
-            chestHash = equipped[5].itemHash
-            legsHash = equipped[6].itemHash
-            classHash = equipped[7].itemHash
-            
-            setKineticHash(kineticHash)
-            setEnergyHash(energyHash)
-            setHeavyHash(heavyHash)
-            setHelmetHash(helmetHash)
-            setArmsHash(armsHash)
-            setChestHash(chestHash)
-            setLegsHash(legsHash)
-            setClassHash(classHash)
-        }
-        else return undefined
-    }, [equipped])
-
-    const kinetic = useItem(kineticHash)
-    const energy = useItem(energyHash)
-    const heavy = useItem(heavyHash)
-    const helmet = useItem(helmetHash)
-    const arms = useItem(armsHash)
-    const chest = useItem(chestHash)
-    const legs = useItem(legsHash)
-    const classItem = useItem(classHash)
-
-    const loadout = {
-        kinetic: kinetic,
-        energy: energy,
-        heavy: heavy,
-        helmet: helmet,
-        arms: arms,
-        chest: chest,
-        legs: legs,
-        classItem: classItem
-    }
+    },[itemsHashed])
 
     return(
-        {loadout}
+        //console.log(equipment),
+        equipment
     )
 }
 

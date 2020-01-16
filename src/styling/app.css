@@ -61,19 +61,62 @@
   min-height: 100vh;
   width: 100vw;
   background: slategray;
+  box-sizing: border-box;
 }
-#dashboard #character-cards-div {
-  width: 100%;
-  min-height: 32vh;
+#dashboard #menu-div {
+  min-width: 100%;
+  background-color: black;
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: center;
 }
-#dashboard #char-card {
-  width: 33vw;
-  min-height: 32vh;
+#dashboard #menu-div #menu-option {
+  min-width: 33.3%;
+  min-height: calc(10vh - 3px);
+  background-size: contain;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 200%;
+  box-sizing: border-box;
+}
+#dashboard #menu-div #menu-option h6 {
+  width: 77%;
+  margin: 0;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+#dashboard #character-cards-div {
+  max-width: 100%;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+#dashboard #character-cards-div #char-card {
+  max-width: 100%;
+  min-height: calc(6vh - 1px);
   border: 1px solid blue;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+#dashboard #character-cards-div #char-card #race-class-div {
+  min-width: 35vw;
+  max-height: calc(6vh - 2px);
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 85%;
 }
 #dashboard #title-div {
   width: 33vw;
@@ -101,7 +144,6 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  margin-bottom: 3px;
 }
 #dashboard #characters #char-equipment {
   height: 24vh;
@@ -114,7 +156,8 @@
 }
 #dashboard #equip-div {
   height: 40vh;
-  width: 33vw;
+  width: 100%;
+  box-sizing: border-box;
   border: 1px solid black;
   display: flex;
   flex-direction: column;
@@ -126,20 +169,24 @@
   border: 1px solid white;
 }
 #dashboard #equip-div #weapon-div {
-  width: 16vw;
-  min-height: 40vh;
+  width: 50vw;
+  min-height: calc(40vh - 1px);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  border: 1px solid black;
+  box-sizing: border-box;
 }
 #dashboard #equip-div #armor-div {
-  width: 16vw;
-  min-height: 40vh;
+  width: 50vw;
+  min-height: calc(40vh - 1px);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  border: 1px solid black;
+  box-sizing: border-box;
 }
 #dashboard #equip-div #armor-box {
   height: 60px;
@@ -159,9 +206,6 @@
   height: 100%;
   width: 100%;
 }
-#dashboard #equip-div #armor-box h6 {
-  margin: 0px 15px;
-}
 #dashboard #equip-div #weapon-box {
   height: 80px;
   width: 80px;
@@ -179,9 +223,6 @@
 #dashboard #equip-div #weapon-box #image-box img {
   height: 100%;
   width: 100%;
-}
-#dashboard #equip-div #weapon-box h6 {
-  margin: 0px 15px;
 }
 
 #Stats {

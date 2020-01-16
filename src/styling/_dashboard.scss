@@ -1,23 +1,74 @@
-
-
 #dashboard {
     min-height: 100vh;
     width: 100vw;
     background: slategray;
-    
-    #character-cards-div{
-        width: 100%;
-        min-height: 32vh;
+    box-sizing: border-box;
+
+    #menu-div{
+        min-width: 100%;
+        background-color: black;
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        #menu-option {
+            min-width: 33.3%;
+            min-height: calc(10vh - 3px);
+            background-size: contain;
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            font-size: 200%;
+            box-sizing: border-box;
+
+            h6 {
+                width: 77%;
+                margin: 0;
+                //max-height: calc(8vh - 10px);
+                //border: 1px solid white;
+                color: whitesmoke;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+            }
+        }
+    }
+    
+    #character-cards-div{
+        max-width: 100%;
+        min-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        //flex-wrap: wrap;
         border: 1px solid black;
-        justify-content: space-evenly;
+        
+
+        #char-card {
+            max-width: 100%;
+            min-height: calc(6vh - 1px);
+            border: 1px solid blue;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+
+            #race-class-div {
+                min-width: 35vw;
+                max-height: calc(6vh - 2px);
+                border: 1px solid black;
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                font-size: 85%;
+            }
+        }
     }
-    #char-card {
-        width: 33vw;
-        min-height: 32vh;
-        border: 1px solid blue;
-    }
+    
     #title-div {
         width: 33vw;
         height: 5vh;
@@ -45,7 +96,7 @@
             flex-direction: column;
             justify-content: space-evenly;
             align-items: flex-start;
-            margin-bottom: 3px;
+            
         }
         #char-equipment {
             height: 24vh;
@@ -60,32 +111,41 @@
     }
     #equip-div{ 
         height: 40vh;
-        width: 33vw;
+        width: 100%;
+        box-sizing: border-box;
         border: 1px solid black;
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+
         h3{
             width: 16vw;
             height: 5vh;
             border: 1px solid white;
         }
+
         #weapon-div{
-            width: 16vw;
-            min-height: 40vh;
+            width: 50vw;
+            min-height: calc(40vh - 1px);
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
+            border: 1px solid black;
+            box-sizing: border-box;
         }
+
         #armor-div{
-            width: 16vw;
-            min-height: 40vh;
+            width: 50vw;
+            min-height: calc(40vh - 1px);
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
             align-items: center;
+            border: 1px solid black;
+            box-sizing: border-box;
         }
+
         #armor-box {
             height: 60px;
             width: 60px;
@@ -104,10 +164,8 @@
                     width: 100%;
                 }
             }
-            h6 {
-                margin: 0px 15px;
-            }
         }
+
         #weapon-box {
             height: 80px;
             width: 80px;
@@ -125,9 +183,6 @@
                     height: 100%;
                     width: 100%;
                 }
-            }
-            h6 {
-                margin: 0px 15px;
             }
         }
     }
