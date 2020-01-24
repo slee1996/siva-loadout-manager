@@ -5,16 +5,19 @@ module.exports = {
     characters: async(req, res) => {
         const {membershipID} = req.params;
 
-        const response = await axios.get(`https://www.bungie.net/Platform/Destiny2/1/Profile/${membershipID}/?components=Characters`, {
+        const response = await axios.get(`https://www.bungie.net/Platform/Destiny2/1/Profile/${membershipID}/?components=Characters,CharacterEquipment,ProfileInventories`, {
                     headers: {'X-API-Key': apiKey}
                 })
                 //console.log('characters')
-                //console.log(response.data.Response.characters)
-        res.response = Object.values(response.data.Response.characters.data)
-        //res.response.characters = Object.values(response.data.Response.characters)
-        //console.log(res.response.data)
+                console.log(response.data.Response.profileInventory)
+       
+        res.response =  {
+            characters: [Object.values(response.data.Response.characters.data)],
+            equipment: [Object.values(response.data.Response.characterEquipment.data)]
+        }
         res.status(201).send(res.response)
     },
+
     equipment: async(req, res) => {
         const {membershipID} = req.params;
 
@@ -30,6 +33,7 @@ module.exports = {
         //console.log(map.map(items => items.itemHash))
         res.status(201).send(res.response)
     },
+
     item: async(req, res) => {
         const {itemHash} = req.params;
         const response = await axios.get(`https://www.bungie.net/Platform/Destiny2/Manifest/DestinyInventoryItemDefinition/${itemHash}/`, {headers: {'X-API-Key': apiKey}})

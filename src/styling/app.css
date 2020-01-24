@@ -58,13 +58,17 @@
 }
 
 #dashboard {
-  min-height: 100vh;
-  width: 100vw;
+  height: calc(100vh - 5vh);
+  max-width: 100vw;
   background: slategray;
   box-sizing: border-box;
+  background-image: url("https://66.media.tumblr.com/56690d9ab11d4e4ca839582e1e423c90/tumblr_oyhfe8AHi01w6utruo1_1280.jpg");
+  background-size: contain;
+  background-position: center;
 }
 #dashboard #menu-div {
   min-width: 100%;
+  height: 9vh;
   background-color: black;
   display: flex;
   flex-direction: row;
@@ -73,9 +77,10 @@
 }
 #dashboard #menu-div #menu-option {
   min-width: 33.3%;
-  min-height: calc(10vh - 3px);
-  background-size: contain;
+  height: 9vh;
+  background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -94,33 +99,62 @@
 }
 #dashboard #character-cards-div {
   max-width: 100%;
-  min-height: 50vh;
+  height: 11vh;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: groove rgba(37, 37, 37, 0.5);
+  box-sizing: border-box;
 }
 #dashboard #character-cards-div #char-card {
-  max-width: 100%;
-  min-height: calc(6vh - 1px);
-  border: 1px solid blue;
+  width: 100%;
+  height: 10vh;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  color: whitesmoke;
+  background-color: rgba(7, 7, 7, 0.25);
+  box-sizing: border-box;
+}
+#dashboard #character-cards-div #char-card h6 {
+  width: 77%;
+  margin: 0;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+#dashboard #character-cards-div #char-card img {
+  height: 10vh;
+  width: 10vh;
+  margin: auto 2px;
 }
 #dashboard #character-cards-div #char-card #race-class-div {
   min-width: 35vw;
-  max-height: calc(6vh - 2px);
-  border: 1px solid black;
+  border: 1px solid white;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  font-size: 85%;
+  margin-left: 10px;
+  font-size: 200%;
+}
+#dashboard #character-cards-div #char-card #stats-div {
+  min-width: 25vw;
+  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-left: 10px;
 }
 #dashboard #title-div {
   width: 33vw;
-  height: 5vh;
+  height: 50vh;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -132,33 +166,10 @@
   height: 4vh;
   width: 16vw;
 }
-#dashboard #characters {
-  height: 6vh;
-  width: 33vw;
-  border: 1px solid black;
-}
-#dashboard #characters #emblem {
-  height: 5vh;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: flex-start;
-}
-#dashboard #characters #char-equipment {
-  height: 24vh;
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-}
 #dashboard #equip-div {
-  height: 40vh;
+  height: 60vh;
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -170,55 +181,67 @@
 }
 #dashboard #equip-div #weapon-div {
   width: 50vw;
-  min-height: calc(40vh - 1px);
+  min-height: calc(60vh - 1px);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border: 1px solid black;
+  box-sizing: border-box;
+}
+#dashboard #equip-div #weapon-div button {
+  border: 2px groove rgba(66, 9, 9, 0.89);
+  height: 60px;
+  width: 95px;
+  background-color: rgba(0, 0, 0, 0.25);
+  color: #616161;
+  font-size: 100%;
   box-sizing: border-box;
 }
 #dashboard #equip-div #armor-div {
   width: 50vw;
-  min-height: calc(40vh - 1px);
+  min-height: calc(60vh - 1px);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border: 1px solid black;
   box-sizing: border-box;
 }
 #dashboard #equip-div #armor-box {
-  height: 60px;
-  width: 60px;
-  border: 1px solid whitesmoke;
+  height: 80px;
+  width: 80px;
+  border: 2px solid #520b0b;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   font-size: 150%;
+  background-size: contain;
+  background-position: center;
 }
 #dashboard #equip-div #armor-box #image-box {
-  height: 59px;
-  width: 59px;
+  height: 69px;
+  width: 69px;
 }
 #dashboard #equip-div #armor-box #image-box img {
   height: 100%;
   width: 100%;
 }
 #dashboard #equip-div #weapon-box {
-  height: 80px;
-  width: 80px;
-  border: 1px solid whitesmoke;
+  height: 95px;
+  width: 95px;
+  border: 2px solid #520b0b;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   font-size: 150%;
+  background-size: contain;
+  background-position: center;
+  box-sizing: border-box;
 }
 #dashboard #equip-div #weapon-box #image-box {
-  height: 79px;
-  width: 79px;
+  height: 89px;
+  width: 89px;
 }
 #dashboard #equip-div #weapon-box #image-box img {
   height: 100%;
@@ -303,6 +326,10 @@
 
 h4 {
   margin: 0;
+}
+
+#nav {
+  height: 5vh;
 }
 
 /*# sourceMappingURL=app.css.map */

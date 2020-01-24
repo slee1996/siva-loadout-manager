@@ -2,32 +2,59 @@ import { useState, useEffect } from 'react'
 const axios = require('axios')
 
 const useCharacters = (membershipID) => {
-    const memberID = membershipID
-    
+    let [returnArray, setReturnArray] = useState([])
     let [characters, setCharacters] = useState(undefined)
+    let [equipment, setEquipment] = useState(undefined)
+    let [returnObj, setReturnObj] = useState(undefined)
     
     useEffect(() => {
+        //console.log('what is up')
         const source = axios.CancelToken.source()
         const runEffect = async() => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/${memberID}/characters`,{
+                const response = await axios.get(`http://localhost:4000/api/${membershipID}/characters`,{
                     cancelToken: source.token
                 })
-                //console.log(response.data)
-                setCharacters(response.data)
+                //console.log(response)
+                const equip = Object.assign({}, response.data.equipment[0].map(i => i["items"]))
+                setEquipment(equip)
+
+                const char = Object.assign({}, response.data.characters[0])
+                const arr = Array.from(char)
+                //console.log(char)
+                setCharacters(response.data.characters[0])
             } catch(error) {
                 if (axios.isCancel(error)){}
                 else {throw error}
             }
         }
         runEffect()
+        
         return () => {
             source.cancel()
         }
-    },[memberID])
+    },[membershipID])
+
+    useEffect(() => {
+        let array = []
+        const runEffect = async() => {
+            let keys = characters.keys() 
+            for(const key of keys){
+                let charClass = characters[key].classType === 2 ? 'warlock' : characters[key].classType === 1 ? 'hunter' : 'titan'
+                
+                const obj = {
+                    character: Object.assign({}, characters[key]),
+                    equipment: equipment[key].map(i => i)
+                }
+                array.push(obj)
+            }
+        }
+        if(characters){runEffect()}
+        setReturnArray(array.map(i => i))
+    },[characters, equipment])
 
     return(
-        characters
+        {returnArray}
     )
 }
 

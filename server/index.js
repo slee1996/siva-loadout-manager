@@ -40,6 +40,7 @@ massive(CONNECTION_STRING).then(db => {
 //userController
 app.post('/api/register', ac.register)
 app.post('/api/login', ac.login)
+app.post('/api/logout', ac.logout)
 
 //Endpoints for hitting Bungie API 
 //bungieController
@@ -49,4 +50,4 @@ app.get('/api/item/:itemHash', bc.item)
 
 //Loadouts Endpoints
 //loadoutsController
-app.get(`/api/:user_id/loadouts`, lc.getLoadouts)
+app.get(`/api/:user_id/loadouts`, lc.get)
