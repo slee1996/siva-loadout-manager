@@ -15,7 +15,7 @@ const useCharacters = (membershipID) => {
                 const response = await axios.get(`http://localhost:4000/api/${membershipID}/characters`,{
                     cancelToken: source.token
                 })
-                //console.log(response)
+                console.log(response)
                 const equip = Object.assign({}, response.data.equipment[0].map(i => i["items"]))
                 setEquipment(equip)
 

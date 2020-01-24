@@ -7,7 +7,7 @@ const apiKey = process.env.REACT_APP_API_KEY
 class Register extends Component {
 
     linkBungie = () => {
-        axios.post(`https://www.bungie.net/en/OAuth/Authorize?client_id=9494&response_type=code`, {headers: { 'Access-Control-Allow-Origin': 'https://localhost:3000', 'X-API-Key': apiKey, 'crossdomain': 'true' }})
+        axios.post(`https://www.bungie.net/en/OAuth/Authorize?client_id=9494&response_type=code`, {headers: { 'X-API-Key': apiKey, 'crossdomain': 'true' }})
              .then(res => console.log(res.data))
     }
 

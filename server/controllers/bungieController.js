@@ -5,15 +5,16 @@ module.exports = {
     characters: async(req, res) => {
         const {membershipID} = req.params;
 
-        const response = await axios.get(`https://www.bungie.net/Platform/Destiny2/1/Profile/${membershipID}/?components=Characters,CharacterEquipment,ProfileInventories`, {
+        const response = await axios.get(`https://www.bungie.net/Platform/Destiny2/1/Profile/${membershipID}/?components=Characters,CharacterEquipment,CharacterInventories`, {
                     headers: {'X-API-Key': apiKey}
                 })
                 //console.log('characters')
-                console.log(response.data.Response.profileInventory)
+                console.log(response.data.Response)
        
         res.response =  {
             characters: [Object.values(response.data.Response.characters.data)],
-            equipment: [Object.values(response.data.Response.characterEquipment.data)]
+            equipment: [Object.values(response.data.Response.characterEquipment.data)],
+            inventory: Object.values(response.data.Response.characterInventories)
         }
         res.status(201).send(res.response)
     },
