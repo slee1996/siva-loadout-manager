@@ -320,6 +320,14 @@
   width: 50%;
 }
 
+#loadouts-div {
+  color: white;
+  max-width: 100vw;
+  min-height: 10vh;
+  border: 1px solid white;
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
 }

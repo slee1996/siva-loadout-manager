@@ -16,7 +16,8 @@ create table loadouts (
     arms int,
     chest int,
     legs int,
-    class_item int
+    class_item int,
+    membership_id varchar(150)
 )
 
 create table weapons (

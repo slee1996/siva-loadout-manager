@@ -1,13 +1,12 @@
 module.exports = {
     get: (req, res) => {
-        const {user_id} = req.params;
+        const {membership_id} = req.params;
         const db = req.app.get('db');
 
-        let loadouts = db.get_loadouts(user_id)
-            .then(loadouts => {
-                res.status(200).send(loadouts)
-            })
-            .catch(err => res.status(500).send(err))
+        let loadouts = db.get_loadouts(membership_id).then(loadouts => {
+            res.status(200).send(loadouts)
+        })
+        .catch(err => res.status(500).send(err))
     },
 
     newLoadout: (req, res) => {
@@ -15,10 +14,6 @@ module.exports = {
 
         loadouts.push({id, char, kinetic, energy, heavy})
         id++
-        res.status(200).send(loadouts)
-    },
-
-    read: (req, res) => {
         res.status(200).send(loadouts)
     },
 
@@ -39,12 +34,31 @@ module.exports = {
         res.status(200).send(loadouts)
     },
 
-    delete: (req, res) => {
-        const deleteID = req.params.id
-        const loadoutIndex = loadouts.findIndex(loadout => loadout.id == deleteID)
+    delete: async(req, res) => {
+        // const deleteID = req.params.id
+        // const loadoutIndex = loadouts.findIndex(loadout => loadout.loadout_id == deleteID)
         
-        loadouts.splice(loadoutIndex, 1)
+        // loadouts.splice(loadoutIndex, 1)
+        // res.status(200).send(loadouts)
+        const {membership_id, loadout_id} = req.params;
+        const db = req.app.get('db');
+        const deleteId = req.params.loadout_id
+        db.delete_loadout(loadout_id)
+
+        const loadouts = db.get_loadouts(membership_id).then(loadouts => {
+            loadouts
+        })
+        .catch(err => res.status(500).send(err))
         res.status(200).send(loadouts)
+            
+        
+        
+        //const loadoutIndex = await loadouts.findIndex(loadout => loadout.loadout_id == loadout_id)
+        
+        //db.delete_loadout(loadoutIndex)
+        //.catch(err => res.status(500).send(err))
+        
+        //let loadout = loadouts[loadoutIndex]
     }
     
 }

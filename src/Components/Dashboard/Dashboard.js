@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import {Link} from 'react-router-dom'
 import useCharacters from './useCharacters'
 import useItems from './useItems'
+import Loadouts from './Loadouts'
 
 const axios = require('axios')
 const baseUrl = 'http://localhost:4000/api/'
@@ -39,7 +40,7 @@ const Dashboard = () => {
     },[charactersArray, key])
 
     let hashMap = useItems(charactersArray[key])
-    console.log(hashMap)
+    //console.log(hashMap)
     useEffect(() => {
         const map = hashMap
         const runEffect = (obj) => {
@@ -142,6 +143,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             : null}
+            <Loadouts />
         </div>
     )
 }

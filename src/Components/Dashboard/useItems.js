@@ -48,7 +48,7 @@ const useItems = (array) => {
         }
     },[hashArray])
 
-    if(items){console.log(items[0])}
+    //if(items){console.log(items[0])}
 
     return(
         items

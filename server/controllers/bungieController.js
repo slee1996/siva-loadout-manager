@@ -2,6 +2,13 @@ const axios = require('axios')
 const apiKey = process.env.REACT_APP_API_KEY
 
 module.exports = {
+    oauth: async(req, res) => {
+        const response = await axios.get(`https://www.bungie.net/en/OAuth/Authorize?client_id=31812&response_type=code`, {headers: { 'X-API-Key': apiKey, 'crossdomain': 'true' }})
+                                    .catch(err => console.log(err))
+
+        res.status(201).send(response)
+    },
+
     characters: async(req, res) => {
         const {membershipID} = req.params;
 

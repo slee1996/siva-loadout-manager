@@ -7,7 +7,7 @@ import Nav from './Components/Nav'
 function App(props) {
   return (
     <div className="App">
-      {props.location.pathname === '/' || '/register'
+      {props.location.pathname === '/'
       ? (<>
           {routes}
         </>)

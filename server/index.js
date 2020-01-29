@@ -47,7 +47,9 @@ app.post('/api/logout', ac.logout)
 app.get('/api/:membershipID/characters', bc.characters)
 app.get('/api/:membershipID/equipment', bc.equipment)
 app.get('/api/item/:itemHash', bc.item)
+app.get('/api/linkBng', bc.oauth)
 
 //Loadouts Endpoints
 //loadoutsController
-app.get(`/api/:user_id/loadouts`, lc.get)
+app.get(`/api/:membership_id/loadouts`, lc.get)
+app.delete(`/api/:membership_id/loadouts/:loadout_id`, lc.delete)
